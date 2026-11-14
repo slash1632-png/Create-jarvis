@@ -1,0 +1,59 @@
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JARVIS AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#020817;color:#bceaff;font-family:Arial;text-align:center}
+header{padding:25px;color:#27caff;letter-spacing:6px;font-size:25px}
+.core{width:190px;height:190px;border:5px solid #13bfff;border-radius:50%;margin:35px auto;display:grid;place-items:center;box-shadow:0 0 30px #00aaff,inset 0 0 30px #008cff;animation:pulse 2s infinite}
+.core span{font-size:30px;font-weight:bold}
+@keyframes pulse{50%{box-shadow:0 0 55px #00aaff,inset 0 0 45px #008cff}}
+.panel{margin:18px;padding:20px;border:1px solid #087ca8;border-radius:15px;background:#06182b}
+#chat{text-align:left;min-height:100px;line-height:1.6;overflow-wrap:anywhere}
+input{width:65%;padding:13px;border-radius:8px;border:1px solid #16bfff;background:#020b19;color:white}
+button{padding:13px;margin:5px;border:0;border-radius:8px;background:#078bc5;color:white;font-weight:bold}
+small{color:#6fa9c5}
+</style>
+</head>
+<body>
+<header>J.A.R.V.I.S</header>
+<div class="core"><span>JARVIS</span></div>
+<p>SYSTEM ONLINE</p>
+<div class="panel">
+<h3>PERSONAL AI ASSISTANT</h3>
+<div id="chat">JARVIS: Hello! I am ready to assist you.</div>
+<br>
+<input id="message" placeholder="Talk to JARVIS...">
+<button onclick="send()">SEND</button>
+<button onclick="voice()">VOICE</button>
+</div>
+<small>JARVIS • ANDROID INTERFACE</small>
+<script>
+function send(){
+let box=document.getElementById("message");
+let chat=document.getElementById("chat");
+let msg=box.value.trim();
+if(!msg)return;
+let safe=msg.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let answer="I am online! My full AI connection is not configured yet.";
+if(msg.toLowerCase().includes("hello"))answer="Hello! How can I help you?";
+if(msg.toLowerCase().includes("name"))answer="I am JARVIS, your personal assistant.";
+if(msg.toLowerCase().includes("time"))answer="The time is "+new Date().toLocaleTimeString();
+chat.innerHTML+="<br><br><b>YOU:</b> "+safe+"<br><b>JARVIS:</b> "+answer;
+box.value="";
+}
+function voice(){
+if(!("webkitSpeechRecognition" in window)){alert("Voice input is not supported in this browser.");return;}
+let r=new webkitSpeechRecognition();
+r.lang="en-US";
+r.onresult=e=>{document.getElementById("message").value=e.results[0][0].transcript;send();};
+r.start();
+}
+</script>
+</body>
+</html>
+
