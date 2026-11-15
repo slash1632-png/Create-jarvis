@@ -44,7 +44,9 @@ if(msg.toLowerCase().includes("hello"))answer="Hello! How can I help you?";
 if(msg.toLowerCase().includes("name"))answer="I am JARVIS, your personal assistant.";
 if(msg.toLowerCase().includes("time"))answer="The time is "+new Date().toLocaleTimeString();
 chat.innerHTML+="<br><br><b>YOU:</b> "+safe+"<br><b>JARVIS:</b> "+answer;
-box.value="";
+let speech = new SpeechSynthesisUtterance(answer);
+speech.lang = "en-GB";
+speechSynthesis.speak(speech);box.value="";
 }
 function voice(){
 if(!("webkitSpeechRecognition" in window)){alert("Voice input is not supported in this browser.");return;}
